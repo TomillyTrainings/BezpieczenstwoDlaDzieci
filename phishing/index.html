@@ -29,7 +29,9 @@
     display:flex; align-items:center; gap:8px; color:#374151; font-size:13px;
     position:relative;
   }
-  .urlbar .lock{color:var(--ok)}
+  .urlbar .lock{color:var(--ok); display:inline-block; line-height:1}
+  /* znacznik pułapki 7: mniejszy, nad kłódką po lewej, żeby nie zasłaniał kłódki ani adresu */
+  .urlbar .lock.flag::after{top:-22px; left:-20px; right:auto; width:22px; height:22px; font-size:12px}
   .fake-url{font-weight:600}
 
   .page{max-width:760px; margin:0 auto 60px; background:var(--card);
@@ -101,6 +103,9 @@
   }
   body.reveal .flag{outline:3px solid var(--danger); outline-offset:3px; border-radius:8px}
   body.reveal .flag::after{display:flex}
+  /* elementy na pełną szerokość .page (overflow:hidden) — znacznik do środka, żeby nie był ucięty */
+  .urgent.flag::after, .footer-note.flag::after{top:6px; right:8px}
+  body.reveal .urgent.flag, body.reveal .footer-note.flag{outline-offset:-3px; border-radius:0}
 
   /* lista wyjaśnień */
   .explain{
@@ -136,11 +141,11 @@
     <button id="toggle" onclick="toggleReveal()">Pokaż pułapki</button>
   </div>
 
-  <!-- Pasek adresu (PUŁAPKA 1) -->
+  <!-- Pasek adresu (PUŁAPKA 1) + kłódka (PUŁAPKA 7) -->
   <div class="browser">
     <div class="dots"><span></span><span></span><span></span></div>
     <div class="urlbar flag" data-n="1">
-      <span class="lock">🔒</span>
+      <span class="lock flag" data-n="7">🔒</span>
       <span class="fake-url">pixelkraina-darmowe-nagrody.xyz/zaloguj</span>
     </div>
   </div>
@@ -214,7 +219,6 @@
     b.classList.toggle('on', on);
     if(on){ window.scrollTo({top:0, behavior:'smooth'}); }
   }
-  // dopisujemy też pułapkę #7 (kłódka) — ta sama co adres, pokazana w liście
   function blockSubmit(e){
     e.preventDefault();
     alert('To przykład edukacyjny — prawdziwa strona wysłałaby teraz Twoje hasło oszustowi. Kliknij „Pokaż pułapki", żeby zobaczyć, co było nie tak!');

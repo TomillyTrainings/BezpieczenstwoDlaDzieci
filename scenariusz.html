@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bezpieczni w sieci — scenariusz zajęć</title>
+<style>
+  *{box-sizing:border-box}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:#111; margin:0; background:#eceef3; line-height:1.6}
+  .toolbar{position:sticky; top:0; background:#1e1b4b; color:#fff; padding:12px 18px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; z-index:5}
+  .toolbar a{color:#c4b5fd; text-decoration:none; font-weight:700}
+  .toolbar button{background:#a855f7; color:#fff; border:0; border-radius:8px; padding:10px 18px; font-weight:700; cursor:pointer; font-size:15px}
+  .wrap{max-width:820px; margin:0 auto; padding:20px}
+  .doc{background:#fff; border-radius:12px; padding:30px 34px; margin:18px 0; box-shadow:0 6px 20px rgba(0,0,0,.1)}
+
+  h1{margin:0 0 14px; font-size:30px; color:#1e1b4b}
+  h2{margin:32px 0 10px; font-size:22px; color:#6d28d9; border-bottom:2px solid #ede9fe; padding-bottom:4px}
+  h3{margin:24px 0 6px; font-size:18px; color:#1e1b4b}
+  h3 .time{display:inline-block; background:#ede9fe; color:#6d28d9; border-radius:20px; padding:1px 10px; font-size:14px; margin-left:6px; vertical-align:middle}
+  p{margin:8px 0}
+  ul,ol{margin:8px 0; padding-left:24px}
+  li{margin:4px 0}
+  code{background:#f3f0fb; border-radius:4px; padding:1px 5px; font-size:.92em}
+  .info p{margin:4px 0}
+  .tip{background:#fef9c3; border-left:5px solid #f59e0b; border-radius:8px; padding:10px 14px; margin:12px 0}
+  .star{border-left:5px solid #dc2626; padding-left:14px}
+  .rule{font-weight:800; color:#6d28d9}
+  hr{border:0; border-top:1px dashed #ccc; margin:26px 0}
+
+  @media(max-width:520px){ .doc{padding:22px 18px} }
+  @media print{
+    .toolbar{display:none}
+    body{background:#fff}
+    .wrap{padding:0; max-width:none}
+    .doc{box-shadow:none; margin:0; border-radius:0; padding:0}
+    h2,h3{break-after:avoid}
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <a href="index.html">← Wszystkie materiały</a>
+    <button onclick="window.print()">🖨️ Drukuj / zapisz PDF</button>
+  </div>
+
+  <div class="wrap">
+    <div class="doc">
+      <h1>Bezpieczni w sieci — scenariusz zajęć</h1>
+
+      <div class="info">
+        <p><b>Grupa:</b> dzieci 10–13 lat (klasy 4–7)</p>
+        <p><b>Czas:</b> 45 minut</p>
+        <p><b>Cel ogólny:</b> dzieci rozpoznają podstawowe zagrożenia w internecie (phishing, nieznajomi, hejt, fałszywe informacje) i znają prostą zasadę reagowania: <span class="rule">Stop → Pomyśl → Powiedz dorosłemu</span>.</p>
+        <p><b>Potrzebne:</b> rzutnik/ekran (slajdy <a href="slajdy.html"><code>slajdy.html</code></a>), dostęp do demo phishingu (<a href="phishing/index.html"><code>phishing/index.html</code></a>), wydrukowane karty pracy (<a href="karty-pracy.html"><code>karty-pracy.html</code></a>), coś do pisania.</p>
+      </div>
+
+      <hr>
+
+      <h2>Cele szczegółowe</h2>
+      <p>Po zajęciach uczeń:</p>
+      <ul>
+        <li>wie, które dane osobowe są „tajemnicą” i nie podaje ich w sieci,</li>
+        <li>potrafi wskazać cechy dobrego hasła,</li>
+        <li>rozpoznaje sygnały phishingu (dziwny adres, presja, nagroda, prośba o hasło/kod),</li>
+        <li>wie, co zrobić, gdy ktoś jest niemiły w sieci lub pisze coś niepokojącego,</li>
+        <li>rozumie, że nie wszystko w internecie jest prawdą.</li>
+      </ul>
+
+      <hr>
+
+      <h2>Przebieg zajęć</h2>
+
+      <h3>1. Wprowadzenie i kontrakt <span class="time">5 min</span></h3>
+      <ul>
+        <li>Przywitanie, krótkie pytanie na rozgrzewkę: <i>„Z czego korzystacie w internecie — gry, filmy, czaty?”</i> (ręce w górę).</li>
+        <li>Ustalcie 2–3 zasady na dziś: słuchamy się, nie ma głupich pytań, nie oceniamy się nawzajem.</li>
+        <li>Zapowiedź: <i>„Dziś nauczymy się, jak nie dać się oszukać w internecie — jak prawdziwi detektywi.”</i></li>
+      </ul>
+      <div class="tip"><b>Wskazówka:</b> nie strasz. Ton: ciekawość i sprawczość („dasz radę to rozpoznać”), nie lęk.</div>
+
+      <h3>2. Dane osobowe — co jest tajemnicą <span class="time">7 min</span></h3>
+      <ul>
+        <li>Pytanie: <i>„Co to są dane osobowe?”</i> Zbierzcie pomysły.</li>
+        <li><b>Ćwiczenie (karta 1):</b> dzieci sortują informacje na dwie grupy — „mogę podać” (np. ulubiony kolor, imię postaci w grze) i „to tajemnica” (adres, szkoła, nr telefonu, hasło, zdjęcie dokumentu).</li>
+        <li>Omówienie: dlaczego niektóre rzeczy trzymamy dla siebie — bo ktoś mógłby je wykorzystać.</li>
+      </ul>
+
+      <h3>3. Hasła <span class="time">5 min</span></h3>
+      <ul>
+        <li>Krótko: co to dobre hasło? (długie, trudne do zgadnięcia, inne do różnych miejsc, nie podajemy nikomu — nawet przyjacielowi).</li>
+        <li>Pokaż trik: hasło ze śmiesznego zdania → <code>MójKotJe3Ryby!</code>.</li>
+        <li><b>Ćwiczenie (karta 2):</b> dzieci oceniają kilka haseł (słabe/mocne) i układają własne mocne hasło ze zdania.</li>
+      </ul>
+
+      <div class="star">
+        <h3>4. Phishing — gra w detektywa <span class="time">15 min</span> ⭐ punkt kulminacyjny</h3>
+        <p>To główna część. Wykorzystaj stronę-przykład <a href="phishing/index.html"><code>phishing/index.html</code></a>.</p>
+        <ol>
+          <li><b>Pokaż stronę „na serio”</b> (bez trybu nauczyciela). Powiedz: <i>„Dostajecie link do gry PixelKraina. Wygląda super. Logujemy się?”</i> Zbierz reakcje.</li>
+          <li><b>Zbierz tropy:</b> zapytaj <i>„co Was niepokoi?”</i> — niech dzieci same wskazują podejrzane elementy.</li>
+          <li><b>Karta 3 „Zaznacz pułapki”:</b> dzieci w parach zaznaczają, co jest nie tak.</li>
+          <li><b>Kliknij „Pokaż pułapki”</b> — strona podświetla 7 czerwonych flag z opisami. Omówcie każdą:
+            <ul>
+              <li>dziwny adres (najważniejsze! — zawsze patrz na pasek adresu),</li>
+              <li>straszenie i pośpiech,</li>
+              <li>nagroda za nic,</li>
+              <li>prośba o hasło,</li>
+              <li>prośba o kod SMS,</li>
+              <li>błędy językowe,</li>
+              <li>mit kłódki 🔒 (szyfrowanie ≠ bezpieczeństwo).</li>
+            </ul>
+          </li>
+          <li><b>Puenta:</b> <i>„Prawdziwa strona ma prawdziwy adres i nigdy nie prosi o hasło przez link z wiadomości.”</i></li>
+        </ol>
+        <div class="tip"><b>Wariant „na żywo”:</b> możesz pokazać, że taką stronę da się szybko postawić — właśnie dlatego nie wolno ufać samemu wyglądowi. Podkreśl: oceniamy <b>kto wysłał i jaki jest adres</b>, nie to, „czy ładnie wygląda”.</div>
+      </div>
+
+      <h3>5. Nieznajomi, hejt i fałszywe informacje <span class="time">8 min</span></h3>
+      <p>Szybki przegląd trzech tematów (slajdy):</p>
+      <ul>
+        <li><b>Nieznajomi:</b> osoba z internetu nie zawsze jest tym, za kogo się podaje. Nie umawiamy się, nie wysyłamy zdjęć. Dziwna wiadomość → dorosły.</li>
+        <li><b>Hejt:</b> słowa w sieci ranią. Gdy ktoś jest niemiły: nie odpowiadaj, zrób zrzut ekranu, powiedz dorosłemu. I sam bądź w porządku wobec innych.</li>
+        <li><b>Fałsz w sieci:</b> przerobione zdjęcia, filmy z AI, fejkowe „wygrane”. Szybka zabawa <b>„prawda czy fałsz”</b> (karta 4).</li>
+      </ul>
+
+      <h3>6. Podsumowanie — zasada STOP <span class="time">5 min</span></h3>
+      <ul>
+        <li>Wspólnie powtórzcie zasadę: <span class="rule">STOP → POMYŚL → POWIEDZ DOROSŁEMU.</span></li>
+        <li>Runda na koniec: każdy mówi jedną rzecz, którą zapamiętał / zrobi inaczej.</li>
+        <li>Rozdaj „dyplom cyfrowego detektywa” (opcjonalnie, karta 5).</li>
+      </ul>
+
+      <hr>
+
+      <h2>Pytania pomocnicze do dyskusji</h2>
+      <ul>
+        <li>Skąd wiesz, że strona jest prawdziwa?</li>
+        <li>Co zrobisz, gdy dostaniesz wiadomość „wygrałeś telefon, kliknij tu”?</li>
+        <li>Czy kłódka w pasku adresu znaczy, że strona jest bezpieczna? (nie!)</li>
+        <li>Komu powiesz, gdy coś w sieci Cię zaniepokoi?</li>
+      </ul>
+
+      <h2>Najczęstsze pułapki w myśleniu dzieci</h2>
+      <p>Na co uważać prowadzącemu:</p>
+      <ul>
+        <li>„Mam kłódkę, więc jest bezpiecznie” → wyjaśnij, że kłódka to tylko szyfrowanie.</li>
+        <li>„To mój znajomy z gry, więc mu ufam” → znajomy z sieci to wciąż nieznajomy.</li>
+        <li>„Skasuję i nikt się nie dowie” → zawsze warto powiedzieć dorosłemu, nikt nie będzie miał kłopotów za zgłoszenie.</li>
+      </ul>
+
+      <h2>Materiały</h2>
+      <ul>
+        <li>Strona-przykład phishingu: <a href="phishing/index.html"><code>phishing/index.html</code></a></li>
+        <li>Slajdy: <a href="slajdy.html"><code>slajdy.html</code></a></li>
+        <li>Karty pracy do druku: <a href="karty-pracy.html"><code>karty-pracy.html</code></a></li>
+        <li>Klucz odpowiedzi do kart: <code>README.md</code> (sekcja „Klucz odpowiedzi”)</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

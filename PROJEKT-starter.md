@@ -19,7 +19,7 @@ Pracujemy nad zestawem materiałów dydaktycznych **„Bezpieczni w sieci"** —
 - `slajdy.html` — prezentacja (nawigacja strzałkami, F = pełny ekran)
 - `phishing/index.html` — demo fałszywej strony (fikcyjna gra PixelKraina) z trybem „Pokaż pułapki"
 - `karty-pracy.html` — 5 kart pracy do druku
-- `scenariusz.md` — plan lekcji 45 min
+- `scenariusz.html` — plan lekcji 45 min
 - `README.md` — instrukcja + klucz odpowiedzi
 
 **Zasady, których trzymamy się zawsze:**

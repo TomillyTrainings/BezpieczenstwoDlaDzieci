@@ -12,11 +12,11 @@ Wszystkie przykłady używają **marek fikcyjnych** i nie kopiują żadnej prawd
 | `slajdy.html` | Prezentacja (10 slajdów) | Wyświetl na rzutniku. ← → lub spacja = następny, `F` = pełny ekran |
 | `phishing/index.html` | Demo fałszywej strony phishingowej | Pokaż dzieciom, potem kliknij „Pokaż pułapki" |
 | `karty-pracy.html` | 5 kart pracy do druku | Otwórz i kliknij „Drukuj / zapisz PDF" |
-| `scenariusz.md` | Scenariusz lekcji dla prowadzącego | Przeczytaj przed zajęciami |
+| `scenariusz.html` | Scenariusz lekcji dla prowadzącego | Przeczytaj przed zajęciami (można wydrukować) |
 
 ## Jak przeprowadzić zajęcia
 
-Pełny plan krok po kroku jest w `scenariusz.md`. W skrócie:
+Pełny plan krok po kroku jest w `scenariusz.html`. W skrócie:
 
 1. Wprowadzenie i kontrakt (5 min)
 2. Dane osobowe — co jest tajemnicą (7 min) → karta 1
