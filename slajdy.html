@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bezpieczni w sieci — slajdy</title>
+<style>
+  :root{
+    --bg1:#1e1b4b; --bg2:#2e1065; --ink:#f8fafc; --muted:#c4b5fd;
+    --accent:#a855f7; --danger:#f87171; --ok:#4ade80; --warn:#fbbf24;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{height:100%}
+  body{
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    color:var(--ink); overflow:hidden;
+  }
+  .deck{height:100vh; display:flex; align-items:center; justify-content:center; padding:5vh 6vw}
+  .slide{display:none; width:100%; max-width:960px; text-align:center; animation:fade .4s ease}
+  .slide.active{display:block}
+  @keyframes fade{from{opacity:0; transform:translateY(12px)}to{opacity:1; transform:none}}
+
+  .kicker{color:var(--muted); font-weight:700; letter-spacing:2px; text-transform:uppercase; font-size:clamp(12px,1.6vw,16px); margin-bottom:14px}
+  h1{font-size:clamp(28px,6vw,64px); line-height:1.05; margin-bottom:18px}
+  h2{font-size:clamp(24px,4.5vw,46px); line-height:1.1; margin-bottom:24px}
+  p.lead{font-size:clamp(18px,2.6vw,28px); color:#e9d5ff; max-width:760px; margin:0 auto}
+  .emoji{font-size:clamp(50px,11vw,120px); display:block; margin-bottom:10px}
+
+  ul.points{list-style:none; display:grid; gap:14px; max-width:720px; margin:10px auto 0; text-align:left}
+  ul.points li{
+    background:rgba(255,255,255,.08); border-radius:14px; padding:16px 20px;
+    font-size:clamp(16px,2.3vw,24px); display:flex; gap:14px; align-items:flex-start;
+    border-left:5px solid var(--accent);
+  }
+  ul.points li .ic{font-size:1.4em; line-height:1}
+  li.bad{border-left-color:var(--danger)}
+  li.good{border-left-color:var(--ok)}
+
+  .big-rule{display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:10px}
+  .big-rule div{
+    background:rgba(255,255,255,.1); border-radius:16px; padding:22px 26px;
+    font-size:clamp(18px,3vw,30px); font-weight:800; min-width:180px;
+  }
+  .big-rule .s1{border-top:6px solid var(--danger)}
+  .big-rule .s2{border-top:6px solid var(--warn)}
+  .big-rule .s3{border-top:6px solid var(--ok)}
+
+  .pill{display:inline-block; background:var(--accent); color:#fff; border-radius:30px; padding:8px 20px; font-weight:700; font-size:clamp(14px,2vw,20px); margin-top:20px}
+
+  /* pasek nawigacji */
+  .nav{position:fixed; bottom:16px; left:0; right:0; display:flex; align-items:center; justify-content:center; gap:16px; z-index:10}
+  .nav button{
+    background:rgba(255,255,255,.14); color:#fff; border:0; border-radius:10px;
+    width:44px; height:44px; font-size:20px; cursor:pointer;
+  }
+  .nav button:hover{background:rgba(255,255,255,.28)}
+  .counter{font-variant-numeric:tabular-nums; color:var(--muted); font-weight:700; min-width:60px; text-align:center}
+  .hint-key{position:fixed; top:14px; right:18px; color:var(--muted); font-size:13px; opacity:.8}
+
+  .progress{position:fixed; top:0; left:0; height:4px; background:var(--accent); transition:width .3s; z-index:10}
+</style>
+</head>
+<body>
+  <div class="progress" id="prog"></div>
+  <div class="hint-key">← → spacja · F = pełny ekran</div>
+
+  <div class="deck" id="deck">
+
+    <!-- 1 -->
+    <section class="slide active">
+      <span class="emoji">🕵️</span>
+      <div class="kicker">Lekcja o bezpieczeństwie</div>
+      <h1>Bezpieczni w sieci</h1>
+      <p class="lead">Dziś zostaniemy cyfrowymi detektywami i nauczymy się rozpoznawać pułapki w internecie.</p>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide">
+      <div class="kicker">Temat 1</div>
+      <h2>Co jest tajemnicą?</h2>
+      <p class="lead">Niektóre informacje trzymamy dla siebie — bo ktoś mógłby je wykorzystać.</p>
+      <ul class="points">
+        <li class="bad"><span class="ic">🔒</span> Tajemnica: adres, szkoła, nr telefonu, hasła, zdjęcia dokumentów i domu</li>
+        <li class="good"><span class="ic">✅</span> Można: ulubiony kolor, nick w grze, ulubiony film</li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide">
+      <div class="kicker">Temat 2</div>
+      <h2>Mocne hasło 🔑</h2>
+      <ul class="points">
+        <li class="good"><span class="ic">💪</span> Długie i trudne do zgadnięcia</li>
+        <li class="good"><span class="ic">🔀</span> Inne do różnych miejsc</li>
+        <li class="bad"><span class="ic">🤐</span> Nie podajemy nikomu — nawet przyjacielowi</li>
+      </ul>
+      <span class="pill">Trik: ze zdania → MójKotJe3Ryby!</span>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide">
+      <span class="emoji">🎣</span>
+      <div class="kicker">Temat 3 — najważniejszy</div>
+      <h1>Phishing</h1>
+      <p class="lead">To fałszywe strony i wiadomości, które udają prawdziwe, żeby wyłudzić hasło albo dane. Zaraz sami złapiemy oszusta!</p>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide">
+      <div class="kicker">Gra w detektywa</div>
+      <h2>7 pułapek phishingu</h2>
+      <ul class="points">
+        <li class="bad"><span class="ic">1️⃣</span> Dziwny adres strony — <b>patrz na pasek adresu!</b></li>
+        <li class="bad"><span class="ic">2️⃣</span> Straszenie i pośpiech („masz 5 minut!")</li>
+        <li class="bad"><span class="ic">3️⃣</span> Nagroda za nic („wygrałeś!")</li>
+        <li class="bad"><span class="ic">4️⃣</span> Prośba o hasło</li>
+        <li class="bad"><span class="ic">5️⃣</span> Prośba o kod SMS</li>
+        <li class="bad"><span class="ic">6️⃣</span> Błędy językowe</li>
+        <li class="bad"><span class="ic">7️⃣</span> Kłódka 🔒 to NIE gwarancja bezpieczeństwa</li>
+      </ul>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide">
+      <span class="emoji">👤</span>
+      <div class="kicker">Temat 4</div>
+      <h2>Nieznajomi w sieci</h2>
+      <p class="lead">Osoba z internetu nie zawsze jest tym, za kogo się podaje.</p>
+      <ul class="points">
+        <li class="bad"><span class="ic">🚫</span> Nie umawiamy się i nie wysyłamy zdjęć</li>
+        <li class="good"><span class="ic">🗣️</span> Dziwna wiadomość → mówimy dorosłemu</li>
+      </ul>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide">
+      <span class="emoji">💬</span>
+      <div class="kicker">Temat 5</div>
+      <h2>Hejt i życzliwość</h2>
+      <p class="lead">Słowa w sieci też ranią.</p>
+      <ul class="points">
+        <li><span class="ic">🛑</span> Nie odpowiadaj na zaczepki</li>
+        <li><span class="ic">📸</span> Zrób zrzut ekranu</li>
+        <li><span class="ic">🗣️</span> Powiedz dorosłemu</li>
+        <li class="good"><span class="ic">💛</span> Sam bądź w porządku wobec innych</li>
+      </ul>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide">
+      <span class="emoji">🤔</span>
+      <div class="kicker">Temat 6</div>
+      <h2>Nie wszystko to prawda</h2>
+      <p class="lead">Przerobione zdjęcia, filmy tworzone przez AI, fałszywe „wygrane". Zanim uwierzysz — sprawdź i zapytaj.</p>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide">
+      <div class="kicker">Zapamiętaj to zawsze</div>
+      <h2>Zasada STOP</h2>
+      <div class="big-rule">
+        <div class="s1">🛑 STOP</div>
+        <div class="s2">🤔 POMYŚL</div>
+        <div class="s3">🗣️ POWIEDZ<br>DOROSŁEMU</div>
+      </div>
+      <p class="lead" style="margin-top:26px">Nie wiesz? Nie klikasz. Pytasz dorosłego.</p>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide">
+      <span class="emoji">🏆</span>
+      <h1>Jesteś cyfrowym detektywem!</h1>
+      <p class="lead">Potrafisz już rozpoznać pułapki w sieci. Gratulacje!</p>
+    </section>
+
+  </div>
+
+  <div class="nav">
+    <button onclick="go(-1)" aria-label="poprzedni">←</button>
+    <span class="counter" id="counter">1 / 10</span>
+    <button onclick="go(1)" aria-label="następny">→</button>
+  </div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    document.getElementById('counter').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  }
+  function go(d){show(i+d)}
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '){go(1); e.preventDefault();}
+    if(e.key==='ArrowLeft') go(-1);
+    if(e.key==='Home') show(0);
+    if(e.key==='End') show(slides.length-1);
+    if(e.key.toLowerCase()==='f'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  });
+  document.getElementById('deck').addEventListener('click',e=>{ if(!e.target.closest('.nav')) go(1); });
+  show(0);
+</script>
+</body>
+</html>

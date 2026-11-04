@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bezpieczni w sieci — materiały na zajęcia</title>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:linear-gradient(135deg,#1e1b4b,#2e1065); color:#f8fafc; min-height:100vh;
+    padding:40px 20px;
+  }
+  .wrap{max-width:860px; margin:0 auto}
+  header{text-align:center; margin-bottom:36px}
+  .emoji{font-size:64px}
+  h1{font-size:clamp(28px,6vw,48px); margin:10px 0 8px}
+  header p{color:#c4b5fd; font-size:clamp(15px,2.4vw,20px)}
+  .meta{margin-top:12px; color:#a78bfa; font-size:14px}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px}
+  a.card{
+    display:block; text-decoration:none; color:#f8fafc;
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12);
+    border-radius:16px; padding:24px; transition:transform .15s, background .15s;
+  }
+  a.card:hover{transform:translateY(-4px); background:rgba(255,255,255,.14)}
+  a.card .ic{font-size:40px; display:block; margin-bottom:12px}
+  a.card h2{font-size:20px; margin-bottom:6px}
+  a.card p{font-size:14px; color:#d8c9f5; line-height:1.5}
+  a.card .go{display:inline-block; margin-top:12px; color:#c4b5fd; font-weight:700; font-size:14px}
+
+  .accent-1{border-left:5px solid #a855f7}
+  .accent-2{border-left:5px solid #4ade80}
+  .accent-3{border-left:5px solid #fbbf24}
+  .accent-4{border-left:5px solid #f87171}
+
+  footer{text-align:center; margin-top:40px; color:#a78bfa; font-size:13px; line-height:1.7}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="emoji">🕵️</div>
+      <h1>Bezpieczni w sieci</h1>
+      <p>Materiały na zajęcia o bezpieczeństwie w internecie</p>
+      <div class="meta">Dla dzieci 10–13 lat · czas: 45 minut</div>
+    </header>
+
+    <div class="grid">
+      <a class="card accent-1" href="slajdy.html">
+        <span class="ic">🖥️</span>
+        <h2>Slajdy</h2>
+        <p>Prezentacja do wyświetlenia na zajęciach. Strzałki ← → do przewijania, klawisz F = pełny ekran.</p>
+        <span class="go">Otwórz prezentację →</span>
+      </a>
+
+      <a class="card accent-4" href="phishing/index.html">
+        <span class="ic">🎣</span>
+        <h2>Demo phishingu</h2>
+        <p>Przykładowa fałszywa strona (fikcyjna gra). Przycisk „Pokaż pułapki" odsłania 7 sygnałów oszustwa.</p>
+        <span class="go">Otwórz demo →</span>
+      </a>
+
+      <a class="card accent-3" href="karty-pracy.html">
+        <span class="ic">📝</span>
+        <h2>Karty pracy</h2>
+        <p>5 ćwiczeń do druku: sortowanie danych, hasła, „złap oszusta", prawda/fałsz i dyplom detektywa.</p>
+        <span class="go">Otwórz / drukuj →</span>
+      </a>
+
+      <a class="card accent-2" href="scenariusz.md">
+        <span class="ic">📋</span>
+        <h2>Scenariusz zajęć</h2>
+        <p>Plan lekcji krok po kroku z czasami, ćwiczeniami i pytaniami do dyskusji (dla prowadzącego).</p>
+        <span class="go">Zobacz scenariusz →</span>
+      </a>
+    </div>
+
+    <footer>
+      ⚠ Wszystkie przykłady używają marek fikcyjnych — nie kopiują żadnej prawdziwej strony.<br>
+      Materiały edukacyjne do swobodnego wykorzystania na zajęciach.
+    </footer>
+  </div>
+</body>
+</html>

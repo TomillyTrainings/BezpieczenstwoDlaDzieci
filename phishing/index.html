@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PixelKraina — logowanie</title>
+<style>
+  :root{
+    --bg:#0f1226; --card:#ffffff; --ink:#1a1a2e; --muted:#6b7280;
+    --brand:#6d28d9; --brand2:#a855f7; --danger:#dc2626; --warn:#f59e0b;
+    --ok:#16a34a;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:linear-gradient(135deg,#1e1b4b,#0f1226 60%,#2e1065);
+    min-height:100vh; color:var(--ink);
+  }
+
+  /* --- pasek "przeglądarki" (sygnał #1: adres) --- */
+  .browser{
+    max-width:760px; margin:18px auto 0; background:#e9eaf0; border-radius:12px 12px 0 0;
+    padding:8px 12px; display:flex; align-items:center; gap:10px; font-size:14px;
+  }
+  .dots{display:flex; gap:6px}
+  .dots span{width:11px;height:11px;border-radius:50%;background:#c3c5cf}
+  .urlbar{
+    flex:1; background:#fff; border-radius:20px; padding:7px 14px;
+    display:flex; align-items:center; gap:8px; color:#374151; font-size:13px;
+    position:relative;
+  }
+  .urlbar .lock{color:var(--ok)}
+  .fake-url{font-weight:600}
+
+  .page{max-width:760px; margin:0 auto 60px; background:var(--card);
+    border-radius:0 0 12px 12px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.4)}
+
+  /* --- baner presji (sygnał #2) --- */
+  .urgent{
+    background:var(--danger); color:#fff; text-align:center; padding:12px 16px;
+    font-weight:700; letter-spacing:.2px; position:relative;
+  }
+  .urgent small{display:block; font-weight:500; opacity:.95; margin-top:3px}
+
+  .hero{padding:34px 28px 10px; text-align:center}
+  .logo{
+    font-size:30px; font-weight:800; color:var(--brand);
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .logo .px{background:var(--brand); color:#fff; border-radius:8px; padding:2px 8px}
+  .tag{color:var(--muted); margin:6px 0 0}
+
+  /* --- nagroda (sygnał #3) --- */
+  .prize{
+    margin:18px 28px; background:linear-gradient(90deg,#fde68a,#fca5a5);
+    border:2px dashed var(--warn); border-radius:12px; padding:14px 16px;
+    text-align:center; font-weight:700; color:#7c2d12;
+  }
+
+  form{padding:6px 28px 20px}
+  label{display:block; font-size:14px; font-weight:600; margin:14px 0 6px}
+  input{
+    width:100%; padding:12px 14px; border:1px solid #d1d5db; border-radius:10px;
+    font-size:15px;
+  }
+  .hint{font-size:12px; color:var(--muted); margin-top:5px}
+  button.submit{
+    width:100%; margin-top:20px; padding:14px; border:0; border-radius:10px;
+    background:var(--brand); color:#fff; font-size:16px; font-weight:700; cursor:pointer;
+  }
+  button.submit:hover{background:#5b21b6}
+
+  .footer-note{
+    text-align:center; font-size:12px; color:var(--muted); padding:0 28px 26px;
+  }
+  /* literówki / błędy językowe (sygnał #6) celowo w treści */
+
+  /* --- tryb nauczyciela --- */
+  .teachbar{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:#111827; color:#fff; display:flex; gap:14px; align-items:center;
+    justify-content:center; padding:10px 16px; font-size:14px; flex-wrap:wrap;
+  }
+  .teachbar b{color:#fbbf24}
+  .teachbar button{
+    background:#6d28d9; color:#fff; border:0; border-radius:8px; padding:8px 16px;
+    font-weight:700; cursor:pointer; font-size:14px;
+  }
+  .teachbar button.on{background:#dc2626}
+  body.spacer{padding-top:52px}
+
+  /* znaczniki pułapek */
+  .flag{position:relative}
+  .flag::after{
+    content:attr(data-n);
+    position:absolute; z-index:10; background:var(--danger); color:#fff;
+    width:26px; height:26px; border-radius:50%; display:none;
+    align-items:center; justify-content:center; font-weight:800; font-size:14px;
+    box-shadow:0 0 0 3px #fff, 0 4px 10px rgba(0,0,0,.3);
+    top:-10px; right:-10px;
+  }
+  body.reveal .flag{outline:3px solid var(--danger); outline-offset:3px; border-radius:8px}
+  body.reveal .flag::after{display:flex}
+
+  /* lista wyjaśnień */
+  .explain{
+    max-width:760px; margin:0 auto 60px; display:none;
+  }
+  body.reveal .explain{display:block}
+  .explain h2{color:#fff; text-align:center; font-size:20px; margin:4px 0 16px}
+  .explain ol{list-style:none; padding:0; margin:0; display:grid; gap:10px}
+  .explain li{
+    background:#fff; border-radius:12px; padding:14px 16px; display:flex; gap:12px;
+    align-items:flex-start; box-shadow:0 8px 24px rgba(0,0,0,.25);
+  }
+  .explain .num{
+    flex:0 0 28px; height:28px; background:var(--danger); color:#fff;
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-weight:800;
+  }
+  .explain .txt b{color:var(--danger)}
+
+  .badge-edu{
+    position:fixed; bottom:12px; right:12px; z-index:60;
+    background:#111827; color:#fde68a; font-size:12px; padding:8px 12px;
+    border-radius:20px; box-shadow:0 6px 18px rgba(0,0,0,.4);
+  }
+  @media(max-width:520px){ .browser,.page,.explain{margin-left:10px;margin-right:10px} }
+</style>
+</head>
+<body class="spacer">
+
+  <!-- Pasek nauczyciela -->
+  <div class="teachbar">
+    <span>🎓 Tryb nauczyciela: <b>7 pułapek</b> do znalezienia</span>
+    <button id="toggle" onclick="toggleReveal()">Pokaż pułapki</button>
+  </div>
+
+  <!-- Pasek adresu (PUŁAPKA 1) -->
+  <div class="browser">
+    <div class="dots"><span></span><span></span><span></span></div>
+    <div class="urlbar flag" data-n="1">
+      <span class="lock">🔒</span>
+      <span class="fake-url">pixelkraina-darmowe-nagrody.xyz/zaloguj</span>
+    </div>
+  </div>
+
+  <div class="page">
+    <!-- Presja czasu (PUŁAPKA 2) -->
+    <div class="urgent flag" data-n="2">
+      ⏳ UWAGA! Twoje konto zostanie USUNIĘTE za 05:00 minut!
+      <small>Zaloguj się TERAZ, żeby nie stracić postępów i diamentów.</small>
+    </div>
+
+    <div class="hero">
+      <div class="logo"><span class="px">PX</span> PixelKraina</div>
+      <p class="tag">Najlepsza gra w galaktyce</p>
+    </div>
+
+    <!-- Nagroda-przynęta (PUŁAPKA 3) -->
+    <div class="prize flag" data-n="3">
+      🎁 GRATULACJE! Wylosowano Ciebie na 1000 darmowych diamentów!<br>
+      Odbierz je po zalogowaniu.
+    </div>
+
+    <form onsubmit="return blockSubmit(event)">
+      <label>Nazwa gracza</label>
+      <input type="text" placeholder="twój nick">
+
+      <!-- Prośba o hasło (PUŁAPKA 4) -->
+      <div class="flag" data-n="4">
+        <label>Hasło do konta</label>
+        <input type="password" placeholder="wpisz swoje hasło">
+      </div>
+
+      <!-- Prośba o kod SMS (PUŁAPKA 5) -->
+      <div class="flag" data-n="5">
+        <label>Kod SMS z telefonu rodzica</label>
+        <input type="text" placeholder="6-cyfrowy kod">
+        <div class="hint">Potrzebny do potwierdzenia nagrody.</div>
+      </div>
+
+      <button class="submit">ODBIERZ NAGRODĘ TERAZ</button>
+    </form>
+
+    <!-- Błędy językowe (PUŁAPKA 6) -->
+    <p class="footer-note flag" data-n="6">
+      © PixelKraina 2026. Wszytkie prawa zastrzerzone.
+      Oficialny parter nagród. Nieloguj się na obcym komputerzy.
+    </p>
+  </div>
+
+  <!-- Wyjaśnienia (widoczne po kliknięciu) -->
+  <div class="explain">
+    <h2>🔎 Co tu nie gra? 7 pułapek phishingu</h2>
+    <ol>
+      <li><span class="num">1</span><span class="txt"><b>Dziwny adres strony.</b> Prawdziwa gra miałaby adres typu <i>pixelkraina.pl</i>, a nie <i>pixelkraina-darmowe-nagrody.xyz</i>. <b>Zawsze patrz najpierw na pasek adresu!</b></span></li>
+      <li><span class="num">2</span><span class="txt"><b>Straszenie i pośpiech.</b> „Konto zniknie za 5 minut!" ma sprawić, że klikniesz bez myślenia. Prawdziwe serwisy tak nie robią.</span></li>
+      <li><span class="num">3</span><span class="txt"><b>Nagroda za nic.</b> „Wygrałeś 1000 diamentów!" — jeśli coś jest za darmo i za dobre, to najczęściej jest to oszustwo.</span></li>
+      <li><span class="num">4</span><span class="txt"><b>Prośba o hasło.</b> Hasło to tajemnica. Podajesz je tylko na prawdziwej stronie, do której sam wszedłeś — nigdy z linku.</span></li>
+      <li><span class="num">5</span><span class="txt"><b>Prośba o kod SMS.</b> Kod z telefonu to klucz do konta lub pieniędzy. Nikt prawdziwy nie prosi o niego w ten sposób.</span></li>
+      <li><span class="num">6</span><span class="txt"><b>Błędy w tekście.</b> „Wszytkie", „zastrzerzone", „oficialny parter" — literówki często zdradzają fałszywkę.</span></li>
+      <li><span class="num">7</span><span class="txt"><b>Kłódka 🔒 to nie gwarancja!</b> Kłódka znaczy tylko „połączenie szyfrowane". Oszuści też ją mają. Nie ufaj stronie tylko dlatego, że jest kłódka.</span></li>
+    </ol>
+  </div>
+
+  <div class="badge-edu">⚠ Strona edukacyjna — marka fikcyjna</div>
+
+<script>
+  function toggleReveal(){
+    const on = document.body.classList.toggle('reveal');
+    const b = document.getElementById('toggle');
+    b.textContent = on ? 'Ukryj pułapki' : 'Pokaż pułapki';
+    b.classList.toggle('on', on);
+    if(on){ window.scrollTo({top:0, behavior:'smooth'}); }
+  }
+  // dopisujemy też pułapkę #7 (kłódka) — ta sama co adres, pokazana w liście
+  function blockSubmit(e){
+    e.preventDefault();
+    alert('To przykład edukacyjny — prawdziwa strona wysłałaby teraz Twoje hasło oszustowi. Kliknij „Pokaż pułapki", żeby zobaczyć, co było nie tak!');
+    return false;
+  }
+</script>
+</body>
+</html>
